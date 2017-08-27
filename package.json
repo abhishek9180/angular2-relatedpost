@@ -1,6 +1,6 @@
 {
   "name": "angular2-relatedpost",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This module shows the related post by matching the tags of all pages from the current page.",
   "main": "./lib/relatedPost.component.js",
   "scripts": {
