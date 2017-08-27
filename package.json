@@ -1,0 +1,21 @@
+{
+  "name": "angular2-relatedpost",
+  "version": "1.0.0",
+  "description": "This module shows the related post by matching the tags of all pages from the current page.",
+  "main": "./lib/relatedPost.component.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "angular2",
+    "related post\",
+    "similar post",
+    "similar page by tags"
+  ],
+  "author": {
+	"name": "Abhishek Jha",
+	"email": "jha.abhishek9180@gmail.com",
+	"url": "https://www.learn-angular2.com"
+   }
+  "license": "MIT"
+}
