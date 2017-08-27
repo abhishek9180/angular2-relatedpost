@@ -4,7 +4,7 @@
 
 #### Quick links
 
-[Plunker template](http://embed.plnkr.co/EdxsaT/)
+[Plunker template](coming soon...)
 
 ###Install
 
@@ -142,7 +142,7 @@ export const routes: Routes = [
 ### Usage
 
 This library contains the **RelatedPostService** and **RelatedPostComponent**.
-Below are usage notes for each. A demo app is also available as in the [repo](https://github.com/Useful-Software-Solutions-Ltd/angular2-highlight-js/tree/master/demo).
+Below are usage notes for each. A demo app is also available as in the [repo](https://github.com/abhishek9180/angular2-relatedpost.git).
 
 #### For HighlightJsContentDirective
 

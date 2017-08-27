@@ -16,6 +16,10 @@
 	"name": "Abhishek Jha",
 	"email": "jha.abhishek9180@gmail.com",
 	"url": "https://www.learn-angular2.com"
-   }
+   },
+   "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abhishek9180/angular2-relatedpost.git"
+  },
   "license": "MIT"
 }
