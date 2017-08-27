@@ -9,10 +9,46 @@ import { RelatedPostService } from './relatedPost.service';
 @Component({
     selector: 'related-post',
     template: `
+    <style>
+    .related_post_image {
+        float: left;
+    }
+    .related_post_image>img {
+        min-width: 100px;
+        max-width: 110px;
+        padding: 15px 5px 10px 0px;
+        margin: auto
+    }
+    .related_post_title {
+        padding-left: 115px;
+    } 
+    .related_post_without_image {
+        padding-left: 5px;
+    }
+    .related_post_title>p {
+        font-size: 16px;
+        font-weight: 500;
+    }
+    .related_post {
+        padding: 1px;
+    }
+
+    .related_post>a {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+    }
+
+    .related_post:hover {
+        background-color: #ddffff!important;
+        border-color: #2196F3 !important;
+    }
+    </style>
+
     <hr>
         
 
-        <div class="w3-panel w3-light-grey w3-leftbar w3-border-grey related_post"  *ngFor="let relatedPost of relatedPosts">
+        <div class="w3-panel w3-light-grey w3-leftbar w3-border-grey related_post" *ngFor="let relatedPost of relatedPosts">
             <a [routerLink]="'/'+[relatedPost.path]">
                 <div class="related_post_image">
                     <img  *ngIf="showRelatedPostImage" src="{{relatedPost.data.post_image_url}}" alt="{{relatedPost.data.post_title}}">
@@ -22,8 +58,7 @@ import { RelatedPostService } from './relatedPost.service';
                 </div>
             </a>
         </div>
-  `,
-    styleUrls: ['./css/relatedPost.style.css'],
+  `
 })
 export class RelatedPostComponent implements OnInit {
 
