@@ -23,7 +23,7 @@ import { RelatedPostService } from './relatedPost.service';
             </a>
         </div>
   `,
-    styleUrls: ['./css/relatedPost.style.css'],
+    styleUrls: ['./app/_services/_relatedPost/lib/css/relatedPost.style.css'],
 })
 export class RelatedPostComponent implements OnInit {
 

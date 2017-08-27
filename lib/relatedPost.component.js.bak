@@ -81,7 +81,7 @@ RelatedPostComponent = __decorate([
     core_1.Component({
         selector: 'related-post',
         template: "\n    <hr>\n        \n\n        <div class=\"w3-panel w3-light-grey w3-leftbar w3-border-grey related_post\"  *ngFor=\"let relatedPost of relatedPosts\">\n            <a [routerLink]=\"'/'+[relatedPost.path]\">\n                <div class=\"related_post_image\">\n                    <img  *ngIf=\"showRelatedPostImage\" src=\"{{relatedPost.data.post_image_url}}\" alt=\"{{relatedPost.data.post_title}}\">\n                </div>\n                <div class=\"related_post_title\" [class.related_post_without_image]=\"!showRelatedPostImage\">\n                    <p>{{relatedPost.data.post_title}}</p>\n                </div>\n            </a>\n        </div>\n  ",
-        styleUrls: ['./css/relatedPost.style.css'],
+        styleUrls: ['./app/_services/_relatedPost/lib/css/relatedPost.style.css'],
     }),
     __metadata("design:paramtypes", [relatedPost_service_1.RelatedPostService, router_1.ActivatedRoute, router_1.Router])
 ], RelatedPostComponent);
