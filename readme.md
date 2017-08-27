@@ -6,7 +6,7 @@
 
 [Plunker template](coming soon...)
 
-###Install
+### Install
 
 ```bash
 npm install --save angular2-relatedpost
@@ -21,7 +21,7 @@ In the SystemJs config file (systemjs.config.js) add a mapping for the package
 ```javascript
 var map = {
     ...
-    'angular2-relatedpost': 'node_modules/angular2-relatedpost/lib'
+    'angular2-relatedpost': 'node_modules/angular2-relatedpost'
 };
 ```
 
@@ -30,7 +30,7 @@ and add the package to the list of packages
 ```javascript
 var packages = {
     ...
-    'angular2-relatedpost': { main: 'relatedPost.component', defaultExtension: 'js'}
+    'angular2-relatedpost': { main: 'index.js', defaultExtension: 'js'}
 };
 ```
 
@@ -45,7 +45,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent }   from './app.component';
 import { DemoComponent } from './demo.component';
 
-import { RelatedPostComponent, RelatedPostService } from 'angular2-relatedpost';
+import { RelatedPostComponent, RelatedPostService } from 'angular2-relatedpost/index';
 
 ...
 
@@ -53,13 +53,13 @@ import { RelatedPostComponent, RelatedPostService } from 'angular2-relatedpost';
     imports: [
         //A2 stuff
         BrowserModule,
-        RelatedPostComponent,
     ],
     providers: [
         RelatedPostService
     ],
     declarations: [
         AppComponent,
+	RelatedPostComponent,
         DemoComponent
     ],
     bootstrap: [
@@ -167,5 +167,16 @@ export class DemoComponent {
 Pass "showRelatedPostImage" and "relatedPostMatchPercentage" to **relatedPostComponent** using the selector "related-post" as given below
 
 ```html
-<related-post [relatedPostMatchPercentage]="relatedPostMatchPercentage" [showRelatedPostImage]="showRelatedPostImage"></related-post>
+<related-post [relatedPostMatchPercentage]="relatedPostMatchPercentage" [showRelatedPostImage]="showRelatedPostImage" [relatedPostCount]="relatedPostCount"></related-post>
 ```
+
+### API
+#### Inputs
+
+relatedPostMatchPercentage : Minimum matching percentage for related posts (1 to 100)
+showRelatedPostImage : show or hide image(boolean value)
+relatedPostCount : Maximum number of related posts allowed
+
+### Dependency
+
+[w3-css](https://www.w3schools.com/w3css/)

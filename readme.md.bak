@@ -81,10 +81,6 @@ export const routes: Routes = [
 		path: 'home',
 		component: HomeComponent,
 		data: {
-			meta: {
-				title: 'Learn-Angular2 Home',
-				description: 'Learn-angular2 Provides the solutions of many problems that we face during the development of angular2 applications. Here I will tell you about angular2 services, loggers, components and many more...'
-			},
 			post_tags: [],
 			post_title: 'Learn-Angular2 Home',
 			post_description: '',

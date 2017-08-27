@@ -46,9 +46,9 @@ import { RelatedPostService } from './relatedPost.service';
     </style>
 
     <hr>
-        
-
-        <div class="w3-panel w3-light-grey w3-leftbar w3-border-grey related_post" *ngFor="let relatedPost of relatedPosts">
+   
+    <ng-template  ngFor let-relatedPost let-i="index" [ngForOf]="relatedPosts">
+        <div class="w3-panel w3-light-grey w3-leftbar w3-border-grey related_post" *ngIf="i < relatedPostCount">
             <a [routerLink]="'/'+[relatedPost.path]">
                 <div class="related_post_image">
                     <img  *ngIf="showRelatedPostImage" src="{{relatedPost.data.post_image_url}}" alt="{{relatedPost.data.post_title}}">
@@ -58,16 +58,21 @@ import { RelatedPostService } from './relatedPost.service';
                 </div>
             </a>
         </div>
+    </ng-template>
   `
 })
+
 export class RelatedPostComponent implements OnInit {
 
     private relatedPosts: Route[] = [];
     private filterTags: Route;
 
+    private pathCounter: number[] = [];
+
     //input from other components
     @Input() showRelatedPostImage: boolean;
     @Input() relatedPostMatchPercentage: number;
+    @Input() relatedPostCount: number;
 
     constructor(private relatedPostService: RelatedPostService, private route:ActivatedRoute, private router:Router) {
     }
@@ -81,16 +86,9 @@ export class RelatedPostComponent implements OnInit {
             let matchingAccuracy: number = 0;
             
             if (allPosts) {
-                let showRelatedPostCount: number = 0;
-                for (let i = 0; i < allPosts.length; i++) {
-                    if(allPosts[i].data && allPosts[i].data.show_in_related_post && allPosts[i].data.show_in_related_post === "true" && allPosts[i].path != this.filterTags.path && allPosts[i].path != '' || allPosts[i].path != '/'){
-                        showRelatedPostCount++;
-                    }
-                }
-                //Find the minimum tags matching required to add it to final related post array
-                matchingAccuracy = Math.floor((showRelatedPostCount * this.relatedPostMatchPercentage)/100);
                 if (this.filterTags) {
-                    for (let i = 0; i < allPosts.length; i++) {
+                    let c = 0;
+                    for (let i = 0; i < allPosts.length; i++, c++) {
                         //Skip the same post
                         if (!(allPosts[i].data && allPosts[i].data.show_in_related_post && allPosts[i].data.show_in_related_post === "true") || allPosts[i].path === this.filterTags.path || allPosts[i].path === '' || allPosts[i].path === '/' ) {
                             continue;
@@ -101,9 +99,17 @@ export class RelatedPostComponent implements OnInit {
                                     count++;
                                 }
                             }
-                            //If half of the tag matches with current passed tag then add it to related post
+                            
+                            matchingAccuracy = Math.floor((this.filterTags.data.post_tags.length * (this.relatedPostMatchPercentage > 100 ? 100 : (this.relatedPostMatchPercentage < 0 ? 0 : this.relatedPostMatchPercentage)))/100);
                             if (count >= matchingAccuracy) {
-                                this.relatedPosts.push(allPosts[i]);
+                                let j=this.pathCounter.length-1;
+                                while(count > this.pathCounter[j]){
+                                    this.pathCounter[j+1] = this.pathCounter[j];
+                                    this.relatedPosts[j+1] = this.relatedPosts[j];
+                                    j--;
+                                }
+                                this.pathCounter[j+1]=count; 
+                                this.relatedPosts[j+1] = allPosts[i];
                             }
                         } else {
                             console.error("Please provide title, tags, description to route.");
