@@ -11,26 +11,48 @@ import { RelatedPostService } from './relatedPost.service';
     template: `
     <style>
     .related_post_image {
-        float: left;
+        display: flex;
+        background-color: #b3b3ff;
     }
     .related_post_image>img {
         min-width: 100px;
         max-width: 110px;
-        padding: 15px 5px 10px 0px;
-        margin: auto
+        margin: auto;
+        align-self: center;
+        flex: 1 1 auto;
+        padding: 5px;
     }
     .related_post_title {
-        padding-left: 115px;
+        flex: 12 1 auto;
+        padding: 5px;
+        white-space: nowrap;
+        overflow: hidden;
     } 
-    .related_post_without_image {
-        padding-left: 5px;
+
+    .related_post_title>h6 {
+        white-space: normal;
+        margin: auto;
+        font-size: 18px;
+        font-weight: 400;
     }
     .related_post_title>p {
         font-size: 16px;
         font-weight: 500;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .related_post {
         padding: 1px;
+        color: #000;
+        background-color: #f1f1f1;
+        border-left: 6px solid #ccc;
+        margin-top: 16px;
+        margin-bottom: 16px;
+        border-color: #BBB;
+        display: flex;
+        flex-flow: row nowrap;
+        min-height: 100%;
+        width: 100%;
     }
 
     .related_post>a {
@@ -48,16 +70,17 @@ import { RelatedPostService } from './relatedPost.service';
     <hr>
    
     <ng-template  ngFor let-relatedPost let-i="index" [ngForOf]="relatedPosts">
-        <div class="w3-panel w3-light-grey w3-leftbar w3-border-grey related_post" *ngIf="i < relatedPostCount">
-            <a [routerLink]="'/'+[relatedPost.path]">
+        <a [routerLink]="'/'+[relatedPost.path]">
+            <div class="related_post" *ngIf="i < relatedPostCount">            
                 <div class="related_post_image">
                     <img  *ngIf="showRelatedPostImage" src="{{relatedPost.data.post_image_url}}" alt="{{relatedPost.data.post_title}}">
                 </div>
                 <div class="related_post_title" [class.related_post_without_image]="!showRelatedPostImage">
-                    <p>{{relatedPost.data.post_title}}</p>
+                    <h6 *ngIf="relatedPost.data.post_title">{{relatedPost.data.post_title}}</h6>
+                    <p *ngIf="relatedPost.data.post_description">{{relatedPost.data.post_description}}</p>
                 </div>
-            </a>
-        </div>
+            </div>
+        </a>
     </ng-template>
   `
 })
@@ -70,9 +93,9 @@ export class RelatedPostComponent implements OnInit {
     private pathCounter: number[] = [];
 
     //input from other components
-    @Input() showRelatedPostImage: boolean;
-    @Input() relatedPostMatchPercentage: number;
-    @Input() relatedPostCount: number;
+    @Input() showRelatedPostImage: boolean = false;
+    @Input() relatedPostMatchPercentage: number = 50;
+    @Input() relatedPostCount: number = 5;
 
     constructor(private relatedPostService: RelatedPostService, private route:ActivatedRoute, private router:Router) {
     }
@@ -86,13 +109,13 @@ export class RelatedPostComponent implements OnInit {
             let matchingAccuracy: number = 0;
             
             if (allPosts) {
-                if (this.filterTags) {
+                if (this.filterTags && this.filterTags.data && this.filterTags.data.post_tags) {
                     let c = 0;
                     for (let i = 0; i < allPosts.length; i++, c++) {
                         //Skip the same post
                         if (!(allPosts[i].data && allPosts[i].data.show_in_related_post && allPosts[i].data.show_in_related_post === "true") || allPosts[i].path === this.filterTags.path || allPosts[i].path === '' || allPosts[i].path === '/' ) {
                             continue;
-                        } else if(allPosts[i].data && allPosts[i].data.post_tags && this.filterTags.data && this.filterTags.data.post_tags){
+                        } else if(allPosts[i].data && allPosts[i].data.post_tags){
                             let count = 0;
                             for (let j = 0; j < this.filterTags.data.post_tags.length; j++) {
                                 if (allPosts[i].data.post_tags.indexOf(this.filterTags.data.post_tags[j]) > -1) {

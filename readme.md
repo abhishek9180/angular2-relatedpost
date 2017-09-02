@@ -4,7 +4,7 @@
 
 #### Quick links
 
-[Plunker template](coming soon...)
+[Plunker template](https://embed.plnkr.co/GwwH0Q4tbiYvboBuhLld/)
 
 ### Install
 
@@ -68,7 +68,7 @@ import { RelatedPostComponent, RelatedPostService } from 'angular2-relatedpost/i
 })
 export class AppModule { }
 ```
-Add the post title, tags, image url, show_in_related_post to routes.
+Add the post title, tags, description, image url and show_in_related_post to routes as shown below.
 
 ```javascript
 export const routes: Routes = [
@@ -81,66 +81,60 @@ export const routes: Routes = [
 		path: 'home',
 		component: HomeComponent,
 		data: {
-			post_tags: [],
+			post_tags: ["Angular", "Angular2", "Home"],
 			post_title: 'Learn-Angular2 Home',
-			post_description: '',
-			post_image_url: './images/404.png',
-			show_in_related_post: 'false'
+			post_description: 'Related post description - Home page',
+			post_image_url: './images/img1.png',
+			show_in_related_post: 'true'
 		},
 	},
 	{
-		path: 'form-validation-in-angular2',
-		component: FormValidationPostComponent,
+		path: 'contact',
+		component: ContactComponent,
 		data: {
-			post_tags: ['angular2', 'form-validation', 'form'],
-			post_title: 'Form validation example in Angular',
-			post_description: 'Validate user input in the UI and display useful validation messages.',
-			post_image_url: './images/404.png',
-			show_in_related_post: 'true'
-    		}
-	},
-	{
-		path: 'search-result-highlighter-in-angular2',
-		component: SearchHighlighterPostComponent,
-		data: {
-			post_tags: ['angular2', 'search', 'search-highlighter'],
-			post_title: 'Search result highlighter in Angular2',
-			post_description: 'Filtering the data and highlighting the filtered/searched results using Pipe in angular',
-			post_image_url: './images/404.png',
-			show_in_related_post: 'true'
-    		}
-	},
-	{
-		path: 'http-get-and-post-in-angular2',
-		component: HttpGetPostComponent,
-		data: {
-			post_tags: ['angular2', 'http', 'get()', 'post()', 'observable', 'promise', 'client-server-communication'],
-			post_title: 'Angular2 Http get() & post() using Observable and Promise',
-			post_description: 'Client-server communication using http protocol in Angular.',
-			post_image_url: './images/404.png',
-			show_in_related_post: 'true'
-    		}
-	},
-	{
-		path: 'show-image-preview',
-		component: ImagePreviewPostComponent,
-		data: {
-			post_tags: ['angular2', 'image-upload', 'image-preview'],
-			post_title: 'Show Uploaded Image Preview in Angular2',
-			post_description: 'Show preview of uploaded Image File in Angular2',
-			post_image_url: './images/404.png',
+			post_tags:  ["Angular", "Angular2", "Contact"],
+			post_title: 'Learn-Angular2 Contact',
+			post_description: 'Related post description - Contact page',
+			post_image_url: './images/img2.png',
 			show_in_related_post: 'true'
 		}
-	}
+	},
+	{
+		path: 'about',
+		component: AboutComponent,
+		data: {
+			post_tags:  ["Angular", "Angular2", "About"],
+			post_title: 'Learn-Angular2 About',
+			post_description: 'Related post description - About page',
+			post_image_url: './images/img3.png',
+			show_in_related_post: 'true'
+		}
+	},
+	{
+		path: 'content',
+		component: ContentComponent,
+		data: {
+			post_tags:  ["Angular", "Angular2", "Content", "About", "Home"],
+			post_title: 'Learn-Angular2 Content',
+			post_description: 'Related post description - Content page',
+			post_image_url: './images/img4.png',
+			show_in_related_post: 'true'
+		}
+	},
+	{
+		path: 'not-found',
+		component: PageNotFoundComponent,
+		data: {
+			show_in_related_post: 'false'
+		}
+	},
 ];
-
+```
 
 ### Usage
 
 This library contains the **RelatedPostService** and **RelatedPostComponent**.
 Below are usage notes for each. A demo app is also available as in the [repo](https://github.com/abhishek9180/angular2-relatedpost.git).
-
-#### For HighlightJsContentDirective
 
 Use this to add posts that are Related to current post.
 
@@ -156,27 +150,32 @@ export class DemoComponent {
 
   //if false then post image won't be displayed
   private showRelatedPostImage: boolean = true;
+
   //Sets the accuracy of matching
   private relatedPostMatchPercentage: number = 20;
+
+  //Maximum related post per page
+  private relatedPostCount: number = 5;
 
   constructor() {}
 }
 
 ```
 
-Pass "showRelatedPostImage" and "relatedPostMatchPercentage" to **relatedPostComponent** using the selector "related-post" as given below
+Pass "showRelatedPostImage", "relatedPostMatchPercentage" and "relatedPostCount" to **relatedPostComponent** using the selector "related-post" as given below
 
 ```html
 <related-post [relatedPostMatchPercentage]="relatedPostMatchPercentage" [showRelatedPostImage]="showRelatedPostImage" [relatedPostCount]="relatedPostCount"></related-post>
+```
+Or you can simply `use the selector without passing value` in this case the default value will be used.
+```html
+<related-post></related-post>
 ```
 
 ### API
 #### Inputs
 
-relatedPostMatchPercentage : Minimum matching percentage for related posts (1 to 100)
-showRelatedPostImage : show or hide image(boolean value)
-relatedPostCount : Maximum number of related posts allowed
+* `relatedPostMatchPercentage` : Minimum matching percentage for related posts (`default is 50`).
+* `showRelatedPostImage` : show or hide image(boolean value `default is false`).
+* `relatedPostCount` : Maximum number of related posts per page (`default is 5`).
 
-### Dependency
-
-[w3-css](https://www.w3schools.com/w3css/)
